@@ -1,5 +1,1 @@
-<RCC>
-    <qresource prefix="/database">
-        <file alias="wordinfo">wordinfo.db</file>
-    </qresource>
-</RCC>
+<RCC/>

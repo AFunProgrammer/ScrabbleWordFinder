@@ -82,7 +82,7 @@ public:
                         QString Contains = QString(""),
                         QString End = QString("")) {
         int nStartLen = (Length < 99 ? Length : 0);
-        int nEndLen = (Length < 99 ? Length : Letters.length());
+        int nEndLen = (Length != 99 ? Length : (Letters.length() > 0 ? Letters.length() : 99));
 
         QString strLikeBuilder = "";
 
@@ -90,8 +90,9 @@ public:
         QString strWhereClause = QString("WHERE length BETWEEN %0 AND %1 ").arg(nStartLen).arg(nEndLen);
         QString strAndClause = "AND (";
         QString strOrClause = "AND (";
-        QString strLikeClause = QString(" AND word LIKE '%0%%%1%%%2'").arg(Start).arg(Contains).arg(End);
-        QString strOrderBy = "ORDER BY length DESC,word ASC;";
+        QString strLikeClause = QString(" AND word LIKE '%0%%%1%%%2' ").arg(Start).arg(Contains).arg(End);
+        QString strOrderBy = " ORDER BY length DESC,word ASC ";
+        QString strLimitClause = " LIMIT 200 ";
 
 
         for(int nLetter = 0; nLetter < 26; nLetter++){
@@ -122,7 +123,15 @@ public:
         }
         strOrClause += QString(") ");
 
-        QString strSQLStatement = strSelectClause + strWhereClause + strAndClause + strOrClause + strLikeClause + strOrderBy;
+
+
+        QString strSQLStatement = "";
+
+        if ( Letters.length() > 0 ){
+            strSQLStatement = strSelectClause + strWhereClause + strAndClause + strOrClause + strLikeClause + strOrderBy + QString(";");
+        } else {
+            strSQLStatement = strSelectClause + strWhereClause + strLikeClause + strOrderBy + strLimitClause + QString(";");
+        }
 
         qDebug() << "The SQL Statement: " << strSQLStatement;
 
@@ -172,16 +181,19 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
         QStandardItemModel *model = new QStandardItemModel(this);
         model->setColumnCount(1); // We only need one column for the word
 
-        QString letters = ui->txtLetters->text();
+        QString letters = ui->txtLetters->text().toLower();
         int length = ui->txtLength->text().toInt();
-        QString start = ui->txtStart->text();
-        QString contains = ui->txtContains->text();
-        QString end = ui->txtEnd->text();
+        QString start = ui->txtStart->text().toLower();
+        QString contains = ui->txtContains->text().toLower();
+        QString end = ui->txtEnd->text().toLower();
+
+        //clear tree view
+        ui->trvFound->setModel(nullptr);
 
         if ( length == 0 )
             length = 99;
 
-        if ( letters.length() == 0 )
+        if ( letters.length() == 0 && start.length() == 0 && contains.length() == 0 && end.length() == 0 && length == 0)
             return;
 
         QSqlQuery query = wordFind.FindWords(letters,length,start,contains,end);

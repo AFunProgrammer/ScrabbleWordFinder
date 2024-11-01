@@ -37,11 +37,16 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 unix:!android {
-  QMAKE_POST_LINK += $$quote(cp $$PWD/android/assets/wordinfo.db $$OUT_PWD$$escape_expand(\n\t))
+    QMAKE_POST_LINK += $$quote(cp $$PWD/android/assets/wordinfo.db $$OUT_PWD$$escape_expand(\n\t))
 }
 
 win32 {
-  QMAKE_POST_LINK += $$quote(cmd /c copy /y $$PWD\android\assets\wordinfo.db $$OUT_PWD$$escape_expand(\n\t))
+    PWD_WIN = $${PWD}
+    OUT_PWD_WIN = $${OUT_PWD}
+    PWD_WIN ~= s,/,\\,g # Windows Requires Extra Magic To Handle Paths
+    OUT_PWD_WIN ~= s,/,\\,g # Windows Requires Extra Magic To Handle Paths
+
+    QMAKE_POST_LINK += $$quote(cmd /c copy $${PWD_WIN}\\android\\assets\\wordinfo.db $${OUT_PWD_WIN}\\wordinfo.db)
 }
 
 android {

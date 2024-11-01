@@ -1,10 +1,12 @@
 #include "scrabblewordfinder.h"
 #include "ui_scrabblewordfinder.h"
+#include <QDir>
 #include <QResource>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QStandardItemModel>
+#include <QStandardPaths>
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
@@ -174,7 +176,21 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
     , ui(new Ui::ScrabbleWordFinder) {
     ui->setupUi(this);
 
+#if defined(Q_OS_ANDROID)
+    QString localStorage = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    qWarning() << "Received writeable location: " << localStorage;
+    QDir dir = QDir::root();
+    dir.mkpath(localStorage);
+    if(QFile::copy("assets:/wordinfo.db", localStorage + "/wordinfo.db")){
+        qWarning() << "File copied to: " << localStorage;
+        wordFind.OpenDatabase(localStorage + "/wordinfo.db");
+    } else {
+        qWarning() << "Failed to copy to: " << (localStorage + "/wordinfo.db");
+        return;
+    }
+#else //Desktop OSes
     wordFind.OpenDatabase("wordinfo.db");
+#endif
 
 
     ui->btnFind->connect(ui->btnFind,&QPushButton::clicked,[this](){

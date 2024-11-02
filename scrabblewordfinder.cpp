@@ -1,6 +1,7 @@
 #include "scrabblewordfinder.h"
 #include "ui_scrabblewordfinder.h"
 #include <QDir>
+#include <QErrorMessage>
 #include <QResource>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -11,6 +12,10 @@
 #include <QDir>
 #include <QDebug>
 #include <QException>
+
+//Android Error Checking Because I cannot connect the debugger to the emulator
+// no matter what I try to do...
+QList<QString> _errorMessages;
 
 // Check if the file path exists
 bool checkPathExists(const QString &path) {
@@ -171,23 +176,32 @@ private:
 
 CWordFind wordFind;
 
+
 ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ScrabbleWordFinder) {
     ui->setupUi(this);
 
 #if defined(Q_OS_ANDROID)
-    QString localStorage = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
-    qWarning() << "Received writeable location: " << localStorage;
-    QDir dir = QDir::root();
-    dir.mkpath(localStorage);
-    if(QFile::copy("assets:/wordinfo.db", localStorage + "/wordinfo.db")){
-        qWarning() << "File copied to: " << localStorage;
-        wordFind.OpenDatabase(localStorage + "/wordinfo.db");
-    } else {
-        qWarning() << "Failed to copy to: " << (localStorage + "/wordinfo.db");
-        return;
+    QString localStorage = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QString filePath = localStorage + "/wordinfo.db";
+    //_errorMessages.append( QString("Received writeable location: " + localStorage) );
+    if(!QFile::exists(filePath)){
+        if ( !QFile::copy("assets:/wordinfo.db", localStorage + "/wordinfo.db")){
+            QString failedToCopy = QString("Couldn't copy to: " + localStorage + "/wordinfo.db");
+            //_errorMessages.append( failedToCopy );
+            //QStandardItemModel *model = new QStandardItemModel(this);
+            //model->setColumnCount(1); // We only need one column for the word
+
+            //for( QString error: _errorMessages ) {
+            //    QStandardItem *item = new QStandardItem(error);
+            //    model->appendRow(item);
+            //}
+            //ui->trvFound->setModel(model);
+            return;
+        }
     }
+    wordFind.OpenDatabase(localStorage + "/wordinfo.db");
 #else //Desktop OSes
     wordFind.OpenDatabase("wordinfo.db");
 #endif

@@ -1,5 +1,7 @@
 #include "scrabblewordfinder.h"
 #include "ui_scrabblewordfinder.h"
+#include <QAction>
+#include <QtGlobal>
 #include <QDir>
 #include <QErrorMessage>
 #include <QResource>
@@ -69,7 +71,7 @@ public:
                 return false;
             }
         } catch (const QException &e) {
-            qDebug() << "An exception occurred.";
+            qDebug() << "An exception occurred." << e.what();
             return false;
             // Handle specific Qt exceptions if needed
         } catch (const std::exception &e) {
@@ -90,8 +92,6 @@ public:
                         QString End = QString("")) {
         int nStartLen = (Length < 99 ? Length : 0);
         int nEndLen = (Length != 99 ? Length : (Letters.length() > 0 ? Letters.length() : 99));
-
-        QString strLikeBuilder = "";
 
         QString strSelectClause = "SELECT word FROM words ";
         QString strWhereClause = QString("WHERE length BETWEEN %0 AND %1 ").arg(nStartLen).arg(nEndLen);
@@ -188,7 +188,8 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
     //_errorMessages.append( QString("Received writeable location: " + localStorage) );
     if(!QFile::exists(filePath)){
         if ( !QFile::copy("assets:/wordinfo.db", localStorage + "/wordinfo.db")){
-            QString failedToCopy = QString("Couldn't copy to: " + localStorage + "/wordinfo.db");
+            qWarning() << "Could not copy sql lite wordinfo.db file to read/write destination";
+            //QString failedToCopy = QString("Couldn't copy to: " + localStorage + "/wordinfo.db");
             //_errorMessages.append( failedToCopy );
             //QStandardItemModel *model = new QStandardItemModel(this);
             //model->setColumnCount(1); // We only need one column for the word
@@ -237,6 +238,8 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
         // Set the model to the tree view
         ui->trvFound->setModel(model);
     });
+
+    ui->btnExit->connect(ui->btnExit, &QPushButton::clicked, qApp, &QCoreApplication::quit);
 }
 
 ScrabbleWordFinder::~ScrabbleWordFinder() {

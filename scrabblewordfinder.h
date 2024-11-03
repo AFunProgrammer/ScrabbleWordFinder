@@ -1,7 +1,6 @@
 #ifndef ScrabbleWordFinder_H
 #define ScrabbleWordFinder_H
 
-#include <QtSystemDetection>
 #include <QApplication>
 #include <QMainWindow>
 

@@ -182,6 +182,9 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
     , ui(new Ui::ScrabbleWordFinder) {
     ui->setupUi(this);
 
+    // Get the current default font size
+    QFont font = this->font();
+
 #if defined(Q_OS_ANDROID)
     QString localStorage = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     QString filePath = localStorage + "/wordinfo.db";
@@ -203,14 +206,21 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
         }
     }
     wordFind.OpenDatabase(localStorage + "/wordinfo.db");
+    font.setPointSize(font.pointSize() + 10);
 #else //Desktop OSes
     wordFind.OpenDatabase("wordinfo.db");
+    font.setPointSize(font.pointSize() + 6);
 #endif
+
+    // Set the Desired Font Size
+    this->setFont(font);
+
 
 
     ui->btnFind->connect(ui->btnFind,&QPushButton::clicked,[this](){
         QStandardItemModel *model = new QStandardItemModel(this);
         model->setColumnCount(1); // We only need one column for the word
+        model->setHeaderData (0, Qt::Horizontal, "Word List:");
 
         QString letters = ui->txtLetters->text().toLower();
         int length = ui->txtLength->text().toInt();

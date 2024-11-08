@@ -207,11 +207,12 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
     }
     wordFind.OpenDatabase(localStorage + "/wordinfo.db");
     font.setPointSize(font.pointSize() + 10);
+    //setStyleSheet("QMainWindow { font-size: 20px; }");
 #else //Desktop OSes
     wordFind.OpenDatabase("wordinfo.db");
     font.setPointSize(font.pointSize() + 6);
+    //setStyleSheet("QMainWindow { font-size: 16pt; }");
 #endif
-
     // Set the Desired Font Size
     this->setFont(font);
 

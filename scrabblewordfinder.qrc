@@ -1,1 +1,10 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/icons">
+        <file>wordfinder_16.ico</file>
+        <file>wordfinder_24.ico</file>
+        <file>wordfinder_32.ico</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>wordfinder.png</file>
+    </qresource>
+</RCC>

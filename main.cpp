@@ -1,9 +1,9 @@
-#include "scrabblewordfinder.h"
+#include "wordfinder.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    ScrabbleWordFinder w;
+    WordFinder w;
     w.show();
     return a.exec();
 }

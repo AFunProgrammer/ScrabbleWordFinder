@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ScrabbleWordFinder</class>
- <widget class="QMainWindow" name="ScrabbleWordFinder">
+ <class>WordFinder</class>
+ <widget class="QMainWindow" name="WordFinder">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -22,10 +22,10 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>ScrabbleWordFinder</string>
+   <string>WordFinder</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="scrabblewordfinder.qrc">
+   <iconset resource="wordfinder.qrc">
     <normaloff>:/icons/wordfinder_32.ico</normaloff>:/icons/wordfinder_32.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -198,7 +198,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="scrabblewordfinder.qrc"/>
+  <include location="wordfinder.qrc"/>
  </resources>
  <connections/>
 </ui>

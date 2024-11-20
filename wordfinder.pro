@@ -8,13 +8,13 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    scrabblewordfinder.cpp
+    wordfinder.cpp
 
 HEADERS += \
-    scrabblewordfinder.h
+    wordfinder.h
 
 FORMS += \
-    scrabblewordfinder.ui
+    wordfinder.ui
 
 DISTFILES += \
     android/AndroidManifest.xml \
@@ -37,7 +37,7 @@ DISTFILES += \
     android/assets/wordinfo.db
 
 RESOURCES += \
-    scrabblewordfinder.qrc
+    wordfinder.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,5 +1,5 @@
-#include "scrabblewordfinder.h"
-#include "ui_scrabblewordfinder.h"
+#include "wordfinder.h"
+#include "ui_wordfinder.h"
 #include <QAction>
 #include <QtGlobal>
 #include <QDir>
@@ -177,9 +177,9 @@ private:
 CWordFind wordFind;
 
 
-ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
+WordFinder::WordFinder(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::ScrabbleWordFinder) {
+    , ui(new Ui::WordFinder) {
     ui->setupUi(this);
 
     // Get the current default font size
@@ -253,6 +253,6 @@ ScrabbleWordFinder::ScrabbleWordFinder(QWidget *parent)
     ui->btnExit->connect(ui->btnExit, &QPushButton::clicked, qApp, &QCoreApplication::quit);
 }
 
-ScrabbleWordFinder::~ScrabbleWordFinder() {
+WordFinder::~WordFinder() {
     delete ui;
 }

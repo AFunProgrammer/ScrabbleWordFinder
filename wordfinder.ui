@@ -19,14 +19,14 @@
    <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="acceptDrops">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="windowTitle">
    <string>WordFinder</string>
   </property>
   <property name="windowIcon">
    <iconset resource="wordfinder.qrc">
-    <normaloff>:/icons/wordfinder_32.ico</normaloff>:/icons/wordfinder_32.ico</iconset>
+    <normaloff>:/icons/android/assets/wordfinder_32.ico</normaloff>:/icons/android/assets/wordfinder_32.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="enabled">

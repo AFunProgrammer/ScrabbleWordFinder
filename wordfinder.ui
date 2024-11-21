@@ -197,6 +197,16 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>txtLetters</tabstop>
+  <tabstop>txtLength</tabstop>
+  <tabstop>txtContains</tabstop>
+  <tabstop>txtStart</tabstop>
+  <tabstop>txtEnd</tabstop>
+  <tabstop>btnFind</tabstop>
+  <tabstop>trvFound</tabstop>
+  <tabstop>btnExit</tabstop>
+ </tabstops>
  <resources>
   <include location="wordfinder.qrc"/>
  </resources>

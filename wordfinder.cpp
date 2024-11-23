@@ -253,11 +253,12 @@ WordFinder::WordFinder(QWidget *parent)
             return;
 
         QSqlQuery query = wordFind.FindWords(letters,length,start,contains,end);
-
+        QList<QString> foundWords;
         while (query.next()) {
-            QString word = query.value(0).toString();
-            ui->lstFound->addItem(word);
+            foundWords.append(query.value(0).toString());
         }
+
+        ui->lstFound->addItems(foundWords);
     });
 
     ui->btnExit->connect(ui->btnExit, &QPushButton::clicked, qApp, &QCoreApplication::quit);

@@ -38,59 +38,15 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="9" column="0" colspan="2">
-       <widget class="QPushButton" name="btnFind">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
+      <item row="14" column="1">
+       <widget class="QPushButton" name="btnExit">
         <property name="text">
-         <string>Find Words</string>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
+         <string>Exit</string>
         </property>
        </widget>
       </item>
-      <item row="13" column="0" colspan="2">
-       <widget class="QTreeView" name="trvFound"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="lblLength">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Word Length:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="lblFound">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Found Words:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLineEdit" name="txtLength"/>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLineEdit" name="txtStart"/>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="txtEnd"/>
       </item>
       <item row="8" column="0">
        <spacer name="verticalSpacer">
@@ -103,10 +59,29 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>20</height>
+          <height>10</height>
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="10" column="0">
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLineEdit" name="txtStart"/>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="lblLetters">
@@ -121,24 +96,82 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="txtEnd"/>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLineEdit" name="txtLetters"/>
       </item>
-      <item row="10" column="0">
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="11" column="0">
+       <widget class="QLabel" name="lblFound">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
+        <property name="text">
+         <string>Found Words:</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="lblEnds">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-       </spacer>
+        <property name="text">
+         <string>Word Ends With:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0" colspan="2">
+       <widget class="QPushButton" name="btnFind">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Find Words</string>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="lblContains">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Word Contains:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblLength">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Word Length:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLineEdit" name="txtLength"/>
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="lblStarts">
@@ -156,39 +189,16 @@
       <item row="5" column="1">
        <widget class="QLineEdit" name="txtContains"/>
       </item>
-      <item row="6" column="1">
-       <widget class="QLabel" name="lblEnds">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <item row="12" column="0" colspan="2">
+       <widget class="QListWidget" name="lstFound">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>20</height>
+         </size>
         </property>
-        <property name="text">
-         <string>Word Ends With:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="lblContains">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Word Contains:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLineEdit" name="txtLetters"/>
-      </item>
-      <item row="14" column="1">
-       <widget class="QPushButton" name="btnExit">
-        <property name="text">
-         <string>Exit</string>
+        <property name="resizeMode">
+         <enum>QListView::Adjust</enum>
         </property>
        </widget>
       </item>
@@ -204,7 +214,7 @@
   <tabstop>txtStart</tabstop>
   <tabstop>txtEnd</tabstop>
   <tabstop>btnFind</tabstop>
-  <tabstop>trvFound</tabstop>
+  <tabstop>lstFound</tabstop>
   <tabstop>btnExit</tabstop>
  </tabstops>
  <resources>

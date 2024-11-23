@@ -207,22 +207,36 @@ WordFinder::WordFinder(QWidget *parent)
     }
     wordFind.OpenDatabase(localStorage + "/wordinfo.db");
     font.setPointSize(font.pointSize() + 10);
-    //setStyleSheet("QMainWindow { font-size: 20px; }");
+
+    // Load the qlistview.css from the qrc resource
+    QFile file(":/styles/qlistcss");  // Path to the resource alias
+    if (file.open(QFile::ReadOnly | QFile::Text)) {
+        QTextStream ts(&file);
+        QString css = ts.readAll();  // Read the content as a string
+
+        QColor highlight = ui->lstFound->palette().highlight().color();
+        QString highlightCss = QString("background: rgb(%0,%1,%2);").arg(highlight.red()).arg(highlight.green()).arg(highlight.blue());
+        QString highlightCssDark = QString("background: rgb(%0,%1,%2);").arg(highlight.red()/1.5).arg(highlight.green()/1.5).arg(highlight.blue()/1.5);
+
+        css = css.replace("background: rgb(0,0,0);", highlightCss);
+        css = css.replace("background: rgb(1,1,1);", highlightCssDark);
+
+        ui->lstFound->setStyleSheet(css); // Apply the CSS to trvFound
+    }
 #else //Desktop OSes
     wordFind.OpenDatabase("wordinfo.db");
     font.setPointSize(font.pointSize() + 6);
-    //setStyleSheet("QMainWindow { font-size: 16pt; }");
 #endif
     // Set the Desired Font Size
     this->setFont(font);
 
-
+    // QT_BUG: BUG: BUG: there's a bug with setting the QList stylesheet and setting the font size
+    //  So I need to set the font size seperately after I've set the stylesheet
+    QFont lstFont = ui->lstFound->font();
+    lstFont.setPointSize(font.pointSize());
+    ui->lstFound->setFont(lstFont);
 
     ui->btnFind->connect(ui->btnFind,&QPushButton::clicked,[this](){
-        QStandardItemModel *model = new QStandardItemModel(this);
-        model->setColumnCount(1); // We only need one column for the word
-        model->setHeaderData (0, Qt::Horizontal, "Word List:");
-
         QString letters = ui->txtLetters->text().toLower();
         int length = ui->txtLength->text().toInt();
         QString start = ui->txtStart->text().toLower();
@@ -230,7 +244,7 @@ WordFinder::WordFinder(QWidget *parent)
         QString end = ui->txtEnd->text().toLower();
 
         //clear tree view
-        ui->trvFound->setModel(nullptr);
+        ui->lstFound->clear();
 
         if ( length == 0 )
             length = 99;
@@ -242,12 +256,8 @@ WordFinder::WordFinder(QWidget *parent)
 
         while (query.next()) {
             QString word = query.value(0).toString();
-            QStandardItem *item = new QStandardItem(word);
-            model->appendRow(item);
+            ui->lstFound->addItem(word);
         }
-
-        // Set the model to the tree view
-        ui->trvFound->setModel(model);
     });
 
     ui->btnExit->connect(ui->btnExit, &QPushButton::clicked, qApp, &QCoreApplication::quit);

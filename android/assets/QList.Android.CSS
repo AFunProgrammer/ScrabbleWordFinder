@@ -1,0 +1,24 @@
+/* Customize the vertical scrollbar */
+QScrollBar:vertical {
+    width: 30px;  /* Make the scrollbar wider */
+    border-radius: 10px;  /* Rounded corners for the scrollbar */
+}
+
+/* Hide the up and down buttons (add-line and sub-line) */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    background: transparent;  /* Make buttons invisible */
+    height: 0px;  /* Set height to 0 to remove them completely */
+    width: 0px;   /* Optional: Set width to 0 to ensure they are completely hidden */
+}
+
+/* Customize the handle (the draggable part of the scrollbar) */
+QScrollBar::handle:vertical {
+    background: rgb(1,1,1);  /* Color for the handle */
+    min-height: 60px;  /* Make the handle larger for touch */
+    border-radius: 10px;
+}
+
+/* Add hover effect on the handle for better interaction */
+QScrollBar::handle:vertical:hover {
+    background: rgb(0,0,0);  /* Darker color when hovering */
+}

@@ -7,4 +7,7 @@
     <qresource prefix="/images">
         <file>android/assets/wordfinder_sm.png</file>
     </qresource>
+    <qresource prefix="/styles">
+        <file alias="qlistcss">android/assets/QList.Android.CSS</file>
+    </qresource>
 </RCC>
